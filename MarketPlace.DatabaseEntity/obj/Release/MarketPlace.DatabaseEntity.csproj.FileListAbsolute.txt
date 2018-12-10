@@ -1,0 +1,12 @@
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\MarketPlace.DatabaseEntity.dll.config
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\MarketPlace.DatabaseEntity.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\MarketPlace.DatabaseEntity.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\EntityFramework.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\EntityFramework.xml
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.csprojAssemblyReference.cache
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.csproj.CoreCompileInputs.cache
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.csproj.CopyComplete
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.pdb

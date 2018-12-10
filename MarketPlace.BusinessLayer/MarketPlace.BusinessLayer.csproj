@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6AB06AAC-7CDC-4A9B-A2A0-3E5D3BECB5BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarketPlace.BusinessLayer</RootNamespace>
+    <AssemblyName>MarketPlace.BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessData\CartBusiness.cs" />
+    <Compile Include="BusinessData\CategoryProductBusiness.cs" />
+    <Compile Include="BusinessData\UserBusiness.cs" />
+    <Compile Include="CartOrderHelper.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Exceptions\CategoryNotFoundException.cs" />
+    <Compile Include="Exceptions\OutOfStockException.cs" />
+    <Compile Include="Exceptions\UserDetailIsWrong.cs" />
+    <Compile Include="Exceptions\UserIsAlreadyExists.cs" />
+    <Compile Include="Exceptions\UserIsNotExist.cs" />
+    <Compile Include="Exceptions\UserOrderLimitExceddException.cs" />
+    <Compile Include="PasswordHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarketPlace.DataAccessLayer\MarketPlace.DataAccessLayer.csproj">
+      <Project>{befa20b8-669c-42a1-bd84-2c66ce05bcdf}</Project>
+      <Name>MarketPlace.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarketPlace.DatabaseEntity\MarketPlace.DatabaseEntity.csproj">
+      <Project>{7E4BC6BB-0478-4C9C-B1DC-9B6BFB514473}</Project>
+      <Name>MarketPlace.DatabaseEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarketPlace.Shared\MarketPlace.Shared.csproj">
+      <Project>{5b736f34-1cad-40cb-8df1-e0c6a1788b61}</Project>
+      <Name>MarketPlace.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

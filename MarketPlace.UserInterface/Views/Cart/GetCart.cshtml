@@ -1,0 +1,28 @@
+﻿@model MarketPlace.UserInterface.ViewModel.Cart.CartViewModel
+@{
+    ViewBag.Title = "GetCart";
+}
+
+<h2>Your Cart</h2>
+<div>
+@foreach (var cartItem in Model.Items)
+{
+    <div class="product-cart d-flex">
+        <div class="one-eight text-center">
+            <div class="display-tc">
+                <img src="@Image.ImageURL" class="img-fluid" alt="Image Not aVailable" style=" height:60px;width:60px;">
+
+            </div>
+        </div>
+        <div class="one-eight text-center">
+            <div class="display-tc">
+                @*<span>@cartItem.Quantity</span>*@
+            </div>
+        </div>
+        <div class="deleteItem">
+            <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+}
+</div>
+

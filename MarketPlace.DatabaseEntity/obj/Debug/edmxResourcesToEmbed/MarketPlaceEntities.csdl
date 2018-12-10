@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarketPlaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Pin" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_OrderAddressID" FromRole="Address" ToRole="Order" />
+    <NavigationProperty Name="UserAddressMappings" Relationship="Self.FK_UserAddressMapping_Address" FromRole="Address" ToRole="UserAddressMapping" />
+  </EntityType>
+  <EntityType Name="CartVariantMapping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="CartID" Type="Guid" Nullable="false" />
+    <Property Name="VariantID" Type="Guid" Nullable="false" />
+    <Property Name="SellingPrice" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_CartVariantMapping_Cart" FromRole="CartVariantMapping" ToRole="User" />
+    <NavigationProperty Name="Variant" Relationship="Self.FK_CartVariantMapping_Variant" FromRole="CartVariantMapping" ToRole="Variant" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductsSold" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_CategoryID" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TotalAmount" Type="Double" Nullable="false" />
+    <Property Name="DeliveryAddressID" Type="Guid" Nullable="false" />
+    <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="StatusID" Type="Int32" Nullable="false" />
+    <Property Name="isCancelled" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_OrderAddressID" FromRole="Order" ToRole="Address" />
+    <NavigationProperty Name="OrderPlaceds" Relationship="Self.FK_OrderPlaced_OrderID" FromRole="Order" ToRole="OrderPlaced" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_statusID" FromRole="Order" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="OrderPlaced">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="OrderID" Type="Guid" Nullable="false" />
+    <Property Name="UserID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderPlaced_OrderID" FromRole="OrderPlaced" ToRole="Order" />
+    <NavigationProperty Name="User" Relationship="Self.FK_OrderPlaced_UserID" FromRole="OrderPlaced" ToRole="User" />
+    <NavigationProperty Name="OrderPlacedVariants" Relationship="Self.FK_OrderPlacedVariants_OrderPlacedID" FromRole="OrderPlaced" ToRole="OrderPlacedVariants" />
+  </EntityType>
+  <EntityType Name="OrderPlacedVariant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="OrderPlacedID" Type="Guid" Nullable="false" />
+    <Property Name="VariantID" Type="Guid" Nullable="false" />
+    <Property Name="SellingPrice" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderPlaced" Relationship="Self.FK_OrderPlacedVariants_OrderPlacedID" FromRole="OrderPlacedVariants" ToRole="OrderPlaced" />
+    <NavigationProperty Name="Variant" Relationship="Self.FK_OrderPlacedVariants_VariantID" FromRole="OrderPlacedVariants" ToRole="Variant" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="CategoryID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OrderLimit" Type="Int32" />
+    <Property Name="TotalVariantsSold" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Product_CategoryID" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Variants" Relationship="Self.FK_Variant" FromRole="Product" ToRole="Variant" />
+  </EntityType>
+  <EntityType Name="Property">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VariantPropertyValues" Relationship="Self.FK_VariantPropertyValue_PropertyID" FromRole="Property" ToRole="VariantPropertyValue" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_statusID" FromRole="Status" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HashPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="RoleID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="CartVariantMappings" Relationship="Self.FK_CartVariantMapping_Cart" FromRole="User" ToRole="CartVariantMapping" />
+    <NavigationProperty Name="OrderPlaceds" Relationship="Self.FK_OrderPlaced_UserID" FromRole="User" ToRole="OrderPlaced" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="UserAddressMappings" Relationship="Self.FK_UserAddressMapping_User" FromRole="User" ToRole="UserAddressMapping" />
+  </EntityType>
+  <EntityType Name="UserAddressMapping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="UserID" Type="Guid" />
+    <Property Name="AddressID" Type="Guid" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_UserAddressMapping_Address" FromRole="UserAddressMapping" ToRole="Address" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserAddressMapping_User" FromRole="UserAddressMapping" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Value">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VariantPropertyValues" Relationship="Self.FK_VariantPropertyValue_ValueID" FromRole="Value" ToRole="VariantPropertyValue" />
+  </EntityType>
+  <EntityType Name="Variant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="SKU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductID" Type="Guid" Nullable="false" />
+    <Property Name="ListingPrice" Type="Double" Nullable="false" />
+    <Property Name="Discount" Type="Double" Nullable="false" />
+    <Property Name="QuantitySold" Type="Int32" Nullable="false" />
+    <Property Name="Inventory" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartVariantMappings" Relationship="Self.FK_CartVariantMapping_Variant" FromRole="Variant" ToRole="CartVariantMapping" />
+    <NavigationProperty Name="OrderPlacedVariants" Relationship="Self.FK_OrderPlacedVariants_VariantID" FromRole="Variant" ToRole="OrderPlacedVariants" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Variant" FromRole="Variant" ToRole="Product" />
+    <NavigationProperty Name="VariantImages" Relationship="Self.FK_VariantImage" FromRole="Variant" ToRole="VariantImage" />
+  </EntityType>
+  <EntityType Name="VariantImage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="VariantID" Type="Guid" Nullable="false" />
+    <Property Name="ImageURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Variant" Relationship="Self.FK_VariantImage" FromRole="VariantImage" ToRole="Variant" />
+  </EntityType>
+  <EntityType Name="VariantPropertyValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PropertyID" Type="Guid" Nullable="false" />
+    <Property Name="ValueID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Property" Relationship="Self.FK_VariantPropertyValue_PropertyID" FromRole="VariantPropertyValue" ToRole="Property" />
+    <NavigationProperty Name="Value" Relationship="Self.FK_VariantPropertyValue_ValueID" FromRole="VariantPropertyValue" ToRole="Value" />
+  </EntityType>
+  <Association Name="FK_OrderAddressID">
+    <End Role="Address" Type="Self.Address" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryAddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddressMapping_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="UserAddressMapping" Type="Self.UserAddressMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAddressMapping">
+        <PropertyRef Name="AddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartVariantMapping_Cart">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CartVariantMapping" Type="Self.CartVariantMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CartVariantMapping">
+        <PropertyRef Name="CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartVariantMapping_Variant">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="CartVariantMapping" Type="Self.CartVariantMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CartVariantMapping">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_CategoryID">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlaced_OrderID">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlaced">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_statusID">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlaced_UserID">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlaced">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlacedVariants_OrderPlacedID">
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="1" />
+    <End Role="OrderPlacedVariants" Type="Self.OrderPlacedVariant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderPlaced">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlacedVariants">
+        <PropertyRef Name="OrderPlacedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlacedVariants_VariantID">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="OrderPlacedVariants" Type="Self.OrderPlacedVariant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlacedVariants">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Variant">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Variant" Type="Self.Variant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Variant">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantPropertyValue_PropertyID">
+    <End Role="Property" Type="Self.Property" Multiplicity="1" />
+    <End Role="VariantPropertyValue" Type="Self.VariantPropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantPropertyValue">
+        <PropertyRef Name="PropertyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddressMapping_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserAddressMapping" Type="Self.UserAddressMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAddressMapping">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantPropertyValue_ValueID">
+    <End Role="Value" Type="Self.Value" Multiplicity="1" />
+    <End Role="VariantPropertyValue" Type="Self.VariantPropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Value">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantPropertyValue">
+        <PropertyRef Name="ValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantImage">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="VariantImage" Type="Self.VariantImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantImage">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MarketPlaceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Addresses" EntityType="Self.Address" />
+    <EntitySet Name="CartVariantMappings" EntityType="Self.CartVariantMapping" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="OrderPlaceds" EntityType="Self.OrderPlaced" />
+    <EntitySet Name="OrderPlacedVariants" EntityType="Self.OrderPlacedVariant" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Properties" EntityType="Self.Property" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="UserAddressMappings" EntityType="Self.UserAddressMapping" />
+    <EntitySet Name="Values" EntityType="Self.Value" />
+    <EntitySet Name="Variants" EntityType="Self.Variant" />
+    <EntitySet Name="VariantImages" EntityType="Self.VariantImage" />
+    <EntitySet Name="VariantPropertyValues" EntityType="Self.VariantPropertyValue" />
+    <AssociationSet Name="FK_OrderAddressID" Association="Self.FK_OrderAddressID">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAddressMapping_Address" Association="Self.FK_UserAddressMapping_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="UserAddressMapping" EntitySet="UserAddressMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartVariantMapping_Cart" Association="Self.FK_CartVariantMapping_Cart">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CartVariantMapping" EntitySet="CartVariantMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartVariantMapping_Variant" Association="Self.FK_CartVariantMapping_Variant">
+      <End Role="Variant" EntitySet="Variants" />
+      <End Role="CartVariantMapping" EntitySet="CartVariantMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_CategoryID" Association="Self.FK_Product_CategoryID">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlaced_OrderID" Association="Self.FK_OrderPlaced_OrderID">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderPlaced" EntitySet="OrderPlaceds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_statusID" Association="Self.FK_statusID">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlaced_UserID" Association="Self.FK_OrderPlaced_UserID">
+      <End Role="User" EntitySet="Users" />
+      <End Role="OrderPlaced" EntitySet="OrderPlaceds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlacedVariants_OrderPlacedID" Association="Self.FK_OrderPlacedVariants_OrderPlacedID">
+      <End Role="OrderPlaced" EntitySet="OrderPlaceds" />
+      <End Role="OrderPlacedVariants" EntitySet="OrderPlacedVariants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlacedVariants_VariantID" Association="Self.FK_OrderPlacedVariants_VariantID">
+      <End Role="Variant" EntitySet="Variants" />
+      <End Role="OrderPlacedVariants" EntitySet="OrderPlacedVariants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Variant" Association="Self.FK_Variant">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Variant" EntitySet="Variants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantPropertyValue_PropertyID" Association="Self.FK_VariantPropertyValue_PropertyID">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="VariantPropertyValue" EntitySet="VariantPropertyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User" Association="Self.FK_User">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAddressMapping_User" Association="Self.FK_UserAddressMapping_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserAddressMapping" EntitySet="UserAddressMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantPropertyValue_ValueID" Association="Self.FK_VariantPropertyValue_ValueID">
+      <End Role="Value" EntitySet="Values" />
+      <End Role="VariantPropertyValue" EntitySet="VariantPropertyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantImage" Association="Self.FK_VariantImage">
+      <End Role="Variant" EntitySet="Variants" />
+      <End Role="VariantImage" EntitySet="VariantImages" />
+    </AssociationSet>
+    <FunctionImport Name="addCategory">
+      <Parameter Name="CategoryName" Mode="In" Type="String" />
+      <Parameter Name="CategoryID" Mode="InOut" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="AddItem" ReturnType="Collection(Guid)">
+      <Parameter Name="CategoryName" Mode="In" Type="String" />
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="OrderLimit" Mode="In" Type="Int32" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="ListingPrice" Mode="In" Type="Double" />
+      <Parameter Name="Discount" Mode="In" Type="Double" />
+      <Parameter Name="QuantitySold" Mode="In" Type="Int32" />
+      <Parameter Name="Inventory" Mode="In" Type="Int32" />
+      <Parameter Name="PropertyName" Mode="In" Type="String" />
+      <Parameter Name="ValueName" Mode="In" Type="String" />
+      <Parameter Name="VariantImage" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddProduct" ReturnType="Collection(Guid)">
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="OrderLimit" Mode="In" Type="Int32" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="CategoryID" Mode="In" Type="Guid" />
+      <Parameter Name="ListingPrice" Mode="In" Type="Double" />
+      <Parameter Name="Discount" Mode="In" Type="Double" />
+      <Parameter Name="QuantitySold" Mode="In" Type="Int32" />
+      <Parameter Name="Inventory" Mode="In" Type="Int32" />
+      <Parameter Name="PropertyName" Mode="In" Type="String" />
+      <Parameter Name="ValueName" Mode="In" Type="String" />
+      <Parameter Name="VariantImage" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddProperty">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="PropertyID" Mode="InOut" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="AddValue">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="ValueID" Mode="InOut" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="AddVariant" ReturnType="Collection(Guid)">
+      <Parameter Name="ProductID" Mode="In" Type="Guid" />
+      <Parameter Name="ListingPrice" Mode="In" Type="Double" />
+      <Parameter Name="Discount" Mode="In" Type="Double" />
+      <Parameter Name="QuantitySold" Mode="In" Type="Int32" />
+      <Parameter Name="Inventory" Mode="In" Type="Int32" />
+      <Parameter Name="PropertyName" Mode="In" Type="String" />
+      <Parameter Name="ValueName" Mode="In" Type="String" />
+      <Parameter Name="VariantImage" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddVariantImage">
+      <Parameter Name="VariantID" Mode="In" Type="Guid" />
+      <Parameter Name="ImageURL" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddVariantPropertyValueMapping" ReturnType="Collection(Guid)">
+      <Parameter Name="PropertyName" Mode="In" Type="String" />
+      <Parameter Name="ValueName" Mode="In" Type="String" />
+      <Parameter Name="MapID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

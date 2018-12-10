@@ -1,0 +1,54 @@
+﻿@model MarketPlace.UserInterface.ViewModel.ProductCategory.ProductViewModel
+@{
+    ViewBag.Title = "ProductDetail";
+}
+
+<h2>ProductDetail</h2>
+<div class="col-md-3 col-lg-3 mb-4 text-center">
+    <div class="product-entry border">
+        @foreach (var Variants in Model.Variants)
+        {
+            foreach (var Image in Variants.VariantImages)
+            {
+                <img src="@Image.ImageURL" class="img-fluid" alt="Image Not Vailable" style=" height:140px;width:200px;">
+            }
+        }
+        <div class="productname">
+            <h3>@Model.Name.ToUpper()</h3>
+            <h3>@Model.Title</h3>
+        </div>
+        <div class="desc">
+            <h4>@Model.Description</h4>
+        </div>
+        <div class="price-info">
+            @foreach (var Variants in Model.Variants)
+            {
+                <h4>Rupee- @Variants.ListingPrice</h4>
+                if (Variants.Discount != 0)
+                {
+                    <p>Discount Available</p>
+                    <h5>@Variants.Discount</h5>
+                }
+            }
+        </div>
+        @using (Html.BeginForm("AddItem", "Cart", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="input-group mb-4">
+                <input type="text" id="Quantity" name="Quantity" class="form-control input-number" value="1" min="1" max="100">
+            </div>
+            <select name="VariantID" id="VariantID" class="form-control">
+                @foreach (var Variant in Model.Variants)
+                {
+                    <option value=@Variant.ID>@Variant.ID</option>
+                }
+            </select>
+
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p class="addtocart"><button class="btn btn-primary btn-addtocart" type="submit"><i class="icon-shopping-cart"></i> Add to Cart</button></p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

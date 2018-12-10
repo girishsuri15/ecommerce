@@ -1,0 +1,7 @@
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\bin\Debug\MarketPlace.Shared.dll.config
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\bin\Debug\MarketPlace.Shared.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\bin\Debug\MarketPlace.Shared.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\obj\Debug\MarketPlace.Shared.csproj.CoreCompileInputs.cache
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\obj\Debug\MarketPlace.Shared.dll
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\obj\Debug\MarketPlace.Shared.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.Shared\obj\Debug\MarketPlace.Shared.csprojAssemblyReference.cache
