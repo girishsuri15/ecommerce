@@ -3,6 +3,7 @@ using MarketPlace.DatabaseEntity;
 using MarketPlace.Shared.DTO.User;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             UserInfoDTO userInfoData = new UserInfoDTO();
             User user = dbContext.Users.Where(c => c.Email == email).FirstOrDefault();
+            Debug.WriteLine(dbContext.Users.Where(c => c.Email == email).FirstOrDefault());
             if (user != null)
             {
                 return true;
@@ -52,6 +54,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             User newUser = AddUserMapper.Map<UserDTO, User>(user);
             newUser.ID = Guid.NewGuid();
             newUser.RoleID = dbContext.Roles.Where(r => r.Name == "Customer").Select(c => c.ID).FirstOrDefault();
+            Debug.WriteLine(dbContext.Roles.Where(r => r.Name == "Customer").Select(c => c.ID).FirstOrDefault());
+
             dbContext.Users.Add(newUser);
             dbContext.SaveChanges();
             UserInfoDTO newuserInfoDTO = userMapper.Map<User, UserInfoDTO>(newUser);
@@ -61,6 +65,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             UserLoginDTO userInfoData = new UserLoginDTO();
             User user = dbContext.Users.Where(c => c.Email == userLoginDTO.Email).FirstOrDefault();
+            Debug.WriteLine(dbContext.Users.Where(c => c.Email == userLoginDTO.Email).FirstOrDefault());
+
             UserDTO userDetails = UserDetailsMapper.Map<User, UserDTO>(user);
             return userDetails;
             
@@ -69,6 +75,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             User user = dbContext.Users.Where(u => u.ID == UserID).First();
             string role = dbContext.Roles.Where(r => r.ID == user.RoleID).Select(r => r.Name).FirstOrDefault();
+            Debug.WriteLine(dbContext.Roles.Where(r => r.ID == user.RoleID).Select(r => r.Name).FirstOrDefault());
 
             if (role.ToUpper() == "ADMIN")
             {

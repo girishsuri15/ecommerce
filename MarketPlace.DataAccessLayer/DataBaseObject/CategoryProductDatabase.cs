@@ -8,6 +8,7 @@ using MarketPlace.DatabaseEntity;
 using System.Data.Entity;
 using MarketPlace.Shared.DTO.Category;
 using MarketPlace.Shared.DTO.ProductCategory;
+using System.Diagnostics;
 
 namespace MarketPlace.DataAccessLayer.DataBaseObject
 {
@@ -50,6 +51,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             ProductAnalysisDTO productAnalysisDTO = new ProductAnalysisDTO();
             var Categories = dbContext.Categories.Include(c=>c.Products).OrderByDescending(c => c.ProductsSold).ToList();
+            Debug.WriteLine(dbContext.Categories.Include(c => c.Products).OrderByDescending(c => c.ProductsSold).ToList());
             productAnalysisDTO.Categories = categoryListMapper.Map<IEnumerable<Category>, IEnumerable<CategoryProductDTO>>(Categories);
             return  productAnalysisDTO;
         }
@@ -57,6 +59,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             CategoryProductDTO categoryProduct = new CategoryProductDTO();
             var product = dbContext.Products.Where(c => c.CategoryID == CategoryID).Include(c => c.Variants).ToList();
+            Debug.WriteLine(dbContext.Products.Where(c => c.CategoryID == CategoryID).Include(c => c.Variants).ToList());
             categoryProduct.Products = ProductsFromCategoryMapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(product);
                 return categoryProduct;
         }
@@ -71,6 +74,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             CategoryProductDTO ProductList = new CategoryProductDTO();
             var product = dbContext.Products.Where(c => c.Title.Contains(searchString) || c.Description.Contains(searchString)).Include(c => c.Variants).ToList();
+            Debug.WriteLine(dbContext.Products.Where(c => c.Title.Contains(searchString) || c.Description.Contains(searchString)).Include(c => c.Variants).ToList());
+
             ProductList.Products = ProductsFromCategoryMapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(product);
             return ProductList;
         }
@@ -78,6 +83,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             ProductDTO Product = new ProductDTO();
             var product = dbContext.Products.Where(c => c.ID == CategoryID ).FirstOrDefault();
+            Debug.WriteLine(dbContext.Products.Where(c => c.ID == CategoryID).FirstOrDefault());
+
             Product = ProductsFromCategoryMapper.Map<Product, ProductDTO>(product);
             foreach (VariantDTO variant in Product.Variants)
             {

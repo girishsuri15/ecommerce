@@ -5,6 +5,7 @@ using MarketPlace.Shared.DTO.Order;
 using MarketPlace.Shared.DTO.ProductCategory;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +60,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         public VariantDTO getVariantDetails(Guid VariantID)
         {
            Variant variantDBData = dbContext.Variants.Where(c => c.ID == VariantID).FirstOrDefault();
-           VariantDTO variantDetails = VariantMapper.Map<Variant, VariantDTO>(variantDBData);
+            Debug.WriteLine(dbContext.Variants.Where(c => c.ID == VariantID).FirstOrDefault());
+            VariantDTO variantDetails = VariantMapper.Map<Variant, VariantDTO>(variantDBData);
            return variantDetails;
             
         }
@@ -72,6 +74,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         {
             List<OrderPlacedVariant> UserOrderData=new List<OrderPlacedVariant>();
             IEnumerable<OrderPlaced> OrderListUserData = dbContext.OrderPlaceds.Where(o => o.UserID == UserID).ToList();
+            Debug.WriteLine(dbContext.OrderPlaceds.Where(o => o.UserID == UserID).ToList());
             foreach (var orderData in OrderListUserData)
             {
                foreach(OrderPlacedVariant t in orderData.OrderPlacedVariants)
@@ -86,6 +89,8 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         public int GetProductOrderLimitByID(Guid ProductId)
         {
             var temp = dbContext.Products.Where(p => p.ID == ProductId).Select(c => c.OrderLimit).FirstOrDefault();
+
+            Debug.WriteLine(dbContext.Products.Where(p => p.ID == ProductId).Select(c => c.OrderLimit).FirstOrDefault());
             return Convert.ToInt32(temp);
         }
         //public bool IsVariantPresentAtCart()
@@ -100,6 +105,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
                 cartVariantAdd.ID = Guid.NewGuid();
                 cartVariantAdd.SellingPrice = SellingPrice;
                 CartVariantMapping variant = dbContext.CartVariantMappings.Where(v => v.VariantID == newVariantAdded.VariantID && v.CartID == newVariantAdded.CartID).FirstOrDefault();
+                Debug.WriteLine(dbContext.CartVariantMappings.Where(v => v.VariantID == newVariantAdded.VariantID && v.CartID == newVariantAdded.CartID).FirstOrDefault());
                 if (variant == null)
                 {
                     dbContext.CartVariantMappings.Add(cartVariantAdd);
@@ -121,12 +127,14 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         public CartVariantDTO VariantPresentAtCart(CartVariantDTO variantData)
         {
             CartVariantMapping variant = dbContext.CartVariantMappings.Where(v=>v.VariantID == variantData.VariantID && v.CartID== variantData.CartID).FirstOrDefault();
+            Debug.WriteLine(dbContext.CartVariantMappings.Where(v => v.VariantID == variantData.VariantID && v.CartID == variantData.CartID).FirstOrDefault());
             CartVariantDTO variantPresentCart = cartCheckerMapper.Map<CartVariantMapping, CartVariantDTO>(variant);
             return variantPresentCart;
         }
         public CartsVariantDTO  GetCartByUserId(Guid UserId)
         {
             IEnumerable<CartVariantMapping> itemAtCart = dbContext.CartVariantMappings.Where(v => v.CartID == UserId).ToList();
+            Debug.WriteLine(dbContext.CartVariantMappings.Where(v => v.CartID == UserId).ToList());
             CartsVariantDTO cartVariantDTO = new CartsVariantDTO();
             cartVariantDTO.Items = cartVariantMapper.Map <IEnumerable<CartVariantMapping>,IEnumerable<CartVariantDTO>>(itemAtCart);
             return cartVariantDTO;
@@ -134,6 +142,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         public bool  DeleteCartVariant(Guid Id,Guid UserID)
         {
             CartVariantMapping cartVariant = dbContext.CartVariantMappings.Where(v => v.CartID == UserID && v.ID == Id).FirstOrDefault();
+            Debug.WriteLine(dbContext.CartVariantMappings.Where(v => v.CartID == UserID && v.ID == Id).FirstOrDefault());
             if (cartVariant != null)
             {
                 dbContext.CartVariantMappings.Remove(cartVariant);

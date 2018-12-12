@@ -3,6 +3,7 @@ using MarketPlace.DatabaseEntity;
 using MarketPlace.Shared.DTO.Address;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
         public AddresssDTO GetAllAddress(Guid UserId)
         {
             IEnumerable<UserAddressMapping> UserAddresssMapping = dbContext.UserAddressMappings.Where(a => a.UserID == UserId).ToList();
+            Debug.WriteLine(dbContext.UserAddressMappings.Where(a => a.UserID == UserId).ToList());
             List<Address> addreses = new List<Address>();
             foreach (var useraddress in UserAddresssMapping)
             {
@@ -49,6 +51,7 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             userAddressMapping.ID= Guid.NewGuid();
             userAddressMapping.UserID = UserID;
             userAddressMapping.AddressID = newAddress.ID;
+
             dbContext.Addresses.Add(newAddres);
             dbContext.UserAddressMappings.Add(userAddressMapping);
             dbContext.SaveChanges();
