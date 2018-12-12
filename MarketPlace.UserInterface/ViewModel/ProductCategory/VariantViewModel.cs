@@ -16,5 +16,6 @@ namespace MarketPlace.UserInterface.ViewModel.ProductCategory
         public int Inventory { get; set; }
         public virtual ProductViewModel Product { get; set; }
         public virtual ICollection<VariantImageViewModel> VariantImages { get; set; }
+
     }
 }

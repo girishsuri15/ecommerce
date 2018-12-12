@@ -1,0 +1,58 @@
+﻿@model MarketPlace.UserInterface.ViewModel.Order.OrderPlacedVariantsViewModel
+@{
+    ViewBag.Title = "GetOrderDeatils";
+}
+<h4>Billing order</h4>
+<div class="row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-1">
+        Quantity
+    </div>
+    <div class="col-md-1">
+        SellingPrice
+    </div>
+</div>
+@{ double totalAmount1 = 0;}
+
+@foreach (var variantItem in Model.VariantList)
+{
+    var counter = 0;
+    double SP = variantItem.Quantity * variantItem.SellingPrice;
+    totalAmount1 = totalAmount1+ SP;
+    <div class="row" style="padding:1px 1px 1px 1px;border: 1px solid #e2e6e2;margin-bottom:2px;">
+        <div class="col-md-2">
+            @foreach (var VariantsImage in variantItem.Variant.VariantImages)
+            {
+                if (counter == 0)
+                {
+                    <img src="@VariantsImage.ImageURL" class="img-fluid" alt="Image Not available" style=" height:60px;width:60px;">
+                    counter = 1;
+                }
+            }
+        </div>
+        <div class="col-md-6">
+            <p style=" font-size: 30px;">@variantItem.Variant.Product.Title.ToUpper()</p>
+            <p style=" font-style: italic; font-size: 14px;">@variantItem.Variant.Product.Name</p>
+        </div>
+        <div class="col-md-1" style="margin:12px 0px 12px 0px;">
+            @variantItem.Quantity
+        </div>
+        <div class="col-md-1" style="margin:12px 0px 12px 0px;">
+            @variantItem.SellingPrice
+        </div>
+    </div>
+}
+
+<div class="row" style="padding:1px 1px 1px 1px;border: 1px solid #e2e6e2;margin-bottom:2px;">
+    <div class="col-md-9" style="margin:12px 0px 12px 0px;">
+        TotalAmount
+    </div>
+    <div class="col-md-1" style="margin:12px 0px 12px 0px;">
+        @totalAmount1
+    </div>
+
+</div>
+
+
+

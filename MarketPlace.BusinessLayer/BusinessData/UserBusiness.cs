@@ -1,5 +1,5 @@
 ﻿using MarketPlace.BusinessLayer.Exceptions;
-using MarketPlace.DataAccessLayer;
+using MarketPlace.DataAccessLayer.DataBaseObject;
 using MarketPlace.Shared.DTO.User;
 using System;
 using System.Collections.Generic;
@@ -51,5 +51,10 @@ namespace MarketPlace.BusinessLayer.BusinessData
                 throw new UserIsNotExist();
             }
         }
+        public bool CheckAdmin(Guid UserID)
+        {
+            return userDatabase.CheckAdmin(UserID);
+        }
+
     }
 }

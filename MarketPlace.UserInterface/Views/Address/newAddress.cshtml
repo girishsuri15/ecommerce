@@ -1,0 +1,57 @@
+﻿@model MarketPlace.UserInterface.ViewModel.Address.AddressViewModel
+@{
+    ViewBag.Title = "newAddress";
+}
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AddressLine1)
+                @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AddressLine2)
+                @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Pin)
+                @Html.EditorFor(model => model.Pin, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.City)
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.State)
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Country)
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <div class="form-group text-center">
+                <input type="submit" value="Add Address" class="btn btn-primary">
+            </div>
+        </div>
+    </div>
+}
+

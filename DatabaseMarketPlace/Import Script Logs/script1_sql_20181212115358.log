@@ -1,0 +1,13 @@
+12-12-2018 17:23:58	This log contains information about the import operation of the script 'script1.sql' into project 'DatabaseMarketPlace' on computer 'GIRISH3148910' by user'girishsuri.
+12-12-2018 17:23:59	Started importing file: C:\Users\girishsuri\AppData\Local\Temp\tmpC0AE.tmp 
+12-12-2018 17:23:59	File name C:\Users\girishsuri\AppData\Local\Temp\tmpC0AE.tmp (size: 43414)
+12-12-2018 17:23:59	Parsing import script
+12-12-2018 17:23:59	Total number of batches in script: 14
+12-12-2018 17:23:59	Total number of statements in script: 56
+12-12-2018 17:23:59	The script was successfully imported into the project.
+12-12-2018 17:23:59	Analyzing schema objects...
+12-12-2018 17:23:59	Scanning project for duplicate elements
+12-12-2018 17:23:59	Finished duplicate element processing
+12-12-2018 17:23:59	In the script that you provided to the import operation, one or more statements were not fully understood. These statements were moved to the ScriptsIgnoredOnImport.sql file. Review the file contents for additional information.
+12-12-2018 17:23:59	A summary of the import was saved to the following location: C:\Users\girishsuri\source\repos\MarketPlace\DatabaseMarketPlace\Import Script Logs\script1_sql_20181212115358.log
+12-12-2018 17:23:59	Click Finish to continue...

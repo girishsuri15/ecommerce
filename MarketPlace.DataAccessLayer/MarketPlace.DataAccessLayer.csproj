@@ -54,11 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddVariantDataBase.cs" />
-    <Compile Include="CategoryProductDatabase.cs" />
+    <Compile Include="DataBaseObject\AddressDatabase.cs" />
+    <Compile Include="DataBaseObject\AddVariantDataBase.cs" />
+    <Compile Include="DataBaseObject\CategoryProductDatabase.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DataBaseObject\OrderDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDatabase.cs" />
+    <Compile Include="DataBaseObject\UserDatabase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarketPlace.DatabaseEntity\MarketPlace.DatabaseEntity.csproj">

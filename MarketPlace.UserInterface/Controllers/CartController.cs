@@ -27,22 +27,22 @@ namespace MarketPlace.UserInterface.Controllers
         {
             
             var cartViewConfig = new MapperConfiguration(cfg => {
-                cfg.CreateMap<CartVariantViewModel, CartOrderVariantDTO>();
+                cfg.CreateMap<CartVariantViewModel, CartVariantDTO>();
             });
             
             IMapper cartDataMapper = new Mapper(cartViewConfig);
-            CartOrderVariantDTO cartItemDTO = new CartOrderVariantDTO();
+            CartVariantDTO cartItemDTO = new CartVariantDTO();
             try
             {
-                cartItemDTO = cartDataMapper.Map<CartVariantViewModel, CartOrderVariantDTO>(cartVariantViewModel);
-                cartItemDTO.UserID = new Guid(Session["userId"].ToString());
+                cartItemDTO = cartDataMapper.Map<CartVariantViewModel, CartVariantDTO>(cartVariantViewModel);
+                cartItemDTO.CartID = new Guid(Session["userId"].ToString());
                 CartBusiness cartBusiness = new CartBusiness();
                 bool isproductAdd = cartBusiness.AddItemCart(cartItemDTO);
-                return View();
+                return RedirectToAction("GetCart", "Cart");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return View("OrderLimit");
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "order Limit For Product is Excedd" });
             }
 
         }
@@ -61,6 +61,21 @@ namespace MarketPlace.UserInterface.Controllers
             IMapper cartDataMapper = new Mapper(cartViewConfig);
             CartViewModel viewData = cartDataMapper.Map<CartsVariantDTO,CartViewModel>(data);
             return View(viewData);
+        }
+        public ActionResult DeleteCartVariant(Guid Id)
+        {
+            CartBusiness cartBusiness = new CartBusiness();
+            Guid CartId = new Guid(Session["userId"].ToString());
+            try
+            {
+                cartBusiness.DeleteCartVariant(Id, CartId);
+              return  RedirectToAction("GetCart", "Cart");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "cannot delete Some Internal error" } );
+
+            }
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model MarketPlace.UserInterface.ViewModel.Address.AddresssViewModel
+@{
+    ViewBag.Title = "Address";
+}
+<div style="margin:8px 6px 12px 6px;">
+<a href="@Url.Action("NewAddress", "Address")">
+    <p class="btn btn-danger">AddNewAddress</p>
+</a>
+    </div>
+@foreach (var address in Model.Addresses)
+{
+    <div class="row" style="padding:1px 1px 1px 1px;border: 1px solid #e2e6e2;margin-bottom:2px;">
+        <div class="col-md-8">
+            @address.AddressLine1
+            @address.AddressLine2
+           <p> <span>@address.City</span>
+               <span>@address.State</span>
+                <span>@address.Country</span>
+                <span>@address.Pin</span>
+</p>
+
+        </div>
+        <div class="col-md-2" style="margin:12px 0px 12px 0px;">
+            <a href="@Url.Action("Order", "Order", new {AddressId = address.Id })">
+                <p class="btn btn-danger">Choose This Address</p>
+            </a>
+        </div>
+
+    </div>
+}
+
+
+

@@ -1,0 +1,12 @@
+﻿@model MarketPlace.UserInterface.ViewModel.ProductCategory.CategoriesViewModel
+
+@{
+    ViewBag.Title = "GetCategories";
+}
+@foreach (var t in Model.Category)
+{
+    <ul class="nav navbar-nav">
+    <li> <a href="@Url.Action("GetProductByCat", "Product", new { CategoryName = t.Name })">@t.Name</a></li>
+    </ul>
+}
+

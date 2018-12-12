@@ -9,12 +9,12 @@ namespace MarketPlace.Shared.DTO.Cart
 {
    public  class CartVariantDTO
     {
-
-        public System.Guid ID { get; set; }
-        public System.Guid CartID { get; set; }
-        public System.Guid VariantID { get; set; }
+        public Guid ID { get; set; }
+        public Guid CartID { get; set; }
+        public Guid VariantID { get; set; }
         public double SellingPrice { get; set; }
         public int Quantity { get; set; }
         public VariantDTO Variant { get; set; }
     }
 }
+//not

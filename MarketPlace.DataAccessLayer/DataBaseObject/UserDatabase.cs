@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketPlace.DataAccessLayer
+namespace MarketPlace.DataAccessLayer.DataBaseObject
 {
     public class UserDatabase
     {
@@ -65,5 +65,20 @@ namespace MarketPlace.DataAccessLayer
             return userDetails;
             
         }
+        public bool CheckAdmin(Guid UserID)
+        {
+            User user = dbContext.Users.Where(u => u.ID == UserID).First();
+            string role = dbContext.Roles.Where(r => r.ID == user.RoleID).Select(r => r.Name).FirstOrDefault();
+
+            if (role.ToUpper() == "ADMIN")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

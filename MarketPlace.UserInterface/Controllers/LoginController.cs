@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketPlace.BusinessLayer.BusinessData;
 using MarketPlace.Shared.DTO.User;
+using MarketPlace.UserInterface.ActionFilter;
 using MarketPlace.UserInterface.ViewModel.UserLogin;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,12 @@ namespace MarketPlace.UserInterface.Controllers
             {
                 return View(loginModel);
             }
+        }
+        [UserAuthFilter]
+        public ActionResult SignOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

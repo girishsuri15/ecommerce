@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketPlace.Shared.DTO.ProductCategory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace MarketPlace.Shared.DTO.Order
         public Guid VariantID { get; set; }
         public double SellingPrice { get; set; }
         public int Quantity { get; set; }
+        public  VariantDTO Variant { get; set; }
     }
 }

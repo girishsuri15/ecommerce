@@ -44,17 +44,27 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="comments\Class1.cs" />
+    <Compile Include="DTO\Address\AddressDTO.cs" />
+    <Compile Include="DTO\Address\AddresssDTO.cs" />
     <Compile Include="DTO\Cart\CartOrderVariantDTO.cs" />
     <Compile Include="DTO\Cart\CartsVariantDTO.cs" />
     <Compile Include="DTO\Cart\CartVariantDTO.cs" />
     <Compile Include="DTO\Category\CategoriesDTO.cs" />
     <Compile Include="DTO\Category\CategoryDTO.cs" />
+    <Compile Include="DTO\Order\OrderAllPlacedDTO.cs" />
+    <Compile Include="DTO\Order\OrderDataDTO.cs" />
+    <Compile Include="DTO\Order\OrderDTO.cs" />
+    <Compile Include="DTO\Order\OrderPlacedDTO.cs" />
+    <Compile Include="DTO\Order\OrdersPlacedDTO.cs" />
+    <Compile Include="DTO\Order\OrdersPlacedVariantDTO.cs" />
+    <Compile Include="DTO\Order\OrderVariantDTO.cs" />
     <Compile Include="DTO\Order\OrderPlacedVariantDTO.cs" />
     <Compile Include="DTO\ProductCategory\CategoryProductDTO.cs" />
     <Compile Include="DTO\ProductCategory\ProductAnalysisDTO.cs" />
     <Compile Include="DTO\ProductCategory\ProductDTO.cs" />
     <Compile Include="DTO\ProductCategory\VariantDTO.cs" />
     <Compile Include="DTO\ProductCategory\VariantImageDTO.cs" />
+    <Compile Include="DTO\Status\StatusDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
     <Compile Include="DTO\User\UserInfoDTO.cs" />
     <Compile Include="DTO\User\UserLoginDTO.cs" />

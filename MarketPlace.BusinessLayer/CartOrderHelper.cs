@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MarketPlace.DataAccessLayer;
+using MarketPlace.DataAccessLayer.DataBaseObject;
 using MarketPlace.Shared.DTO.Cart;
 using MarketPlace.DatabaseEntity;
 using MarketPlace.Shared.DTO.Order;
@@ -45,9 +45,9 @@ namespace MarketPlace.BusinessLayer
         /// <param name="variantData"></param>
         /// <returns></returns>
         /// 
-        public bool IsUserCanOrder(CartOrderVariantDTO newVariantAdded, VariantDTO variantData)
+        public bool IsUserCanOrder(CartVariantDTO newVariantAdded, VariantDTO variantData)
         {
-            IEnumerable<OrderPlacedVariantDTO> orderPlacedVariants = addvariantDataBase.UserOrderData(newVariantAdded.UserID);
+            IEnumerable<OrderPlacedVariantDTO> orderPlacedVariants = addvariantDataBase.UserOrderData(newVariantAdded.CartID);
            int OrderLimit = addvariantDataBase.GetProductOrderLimitByID(variantData.ProductID);
            int UserOrderdCount = orderPlacedVariants.Where(c => c.VariantID == newVariantAdded.VariantID).Count();
             if(UserOrderdCount>= OrderLimit)
@@ -68,19 +68,23 @@ namespace MarketPlace.BusinessLayer
             /// <param name="ItemToBEAdded"></param>
             /// <param name="variantData"></param>
             /// <returns></returns>
-            public CartOrderVariantDTO VariantPresentAtCart(CartOrderVariantDTO variantData)
+            public CartVariantDTO VariantPresentAtCart(CartVariantDTO variantData)
             {
             return addvariantDataBase.VariantPresentAtCart(variantData);
              
             }
 
-        public bool AddVariantToCart(CartOrderVariantDTO newVariantAdded,double SellingPrice)
+        public bool AddVariantToCart(CartVariantDTO newVariantAdded,double SellingPrice)
         {
            return addvariantDataBase.AddVariantToCart(newVariantAdded, SellingPrice);
         }
         public CartsVariantDTO GetCartByUserId(Guid UserId)
         {
             return addvariantDataBase.GetCartByUserId(UserId);
+        }
+        public bool DeleteCartVariant(Guid Id, Guid UserID)
+        {
+            return addvariantDataBase.DeleteCartVariant(Id, UserID);
         }
     }
 }

@@ -43,8 +43,9 @@ namespace MarketPlace.UserInterface.Controllers
                     {
                         UserInfoDTO userInfoDTO = userBusiness.RegisterUser(userDTO);
                        Session["userId"] = userInfoDTO.ID;
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index", "Home");
+
+                }
                 catch (Exception)
                 {
                     return View(userModel);

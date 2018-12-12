@@ -1,0 +1,56 @@
+﻿@model MarketPlace.UserInterface.ViewModel.Order.OrdersPlacedViewModel
+@{
+    ViewBag.Title = "GetOrder";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        DeliveryAT
+    </div>
+    <div class="col-md-2">
+        OrderDate
+    </div>
+    <div class="col-md-2">
+        ExpectedDeliveryDate
+    </div>
+    <div class="col-md-2">
+        TotalAmount
+    </div>
+</div>
+
+@foreach (var OrderPLaced in Model.OrderPlaced)
+{
+    //var counter = 0;
+    //var SP = cartItem.Quantity * cartItem.SellingPrice;
+    //totalAmount = totalAmount + SP;
+<div class="row" style="padding:1px 1px 1px 1px;border: 1px solid #e2e6e2;margin-bottom:2px;">
+    <div class="col-md-4" style="margin:12px 0px 12px 0px;">
+        @OrderPLaced.Order.Address.AddressLine1
+        @OrderPLaced.Order.Address.AddressLine2
+        <p>
+            <span> @OrderPLaced.Order.Address.City</span>
+            <span>@OrderPLaced.Order.Address.State</span>
+            <span>@OrderPLaced.Order.Address.Country</span>
+            <span> @OrderPLaced.Order.Address.Pin</span>
+        </p>
+    </div>
+    <div class="col-md-2">
+        @OrderPLaced.Order.OrderDate
+    </div>
+    <div class="col-md-2">
+        
+        @OrderPLaced.Order.DeliveryDate
+    </div>
+    <div class="col-md-2">
+        @OrderPLaced.Order.TotalAmount
+    </div>
+    <div class="col-md-2" style="margin:12px 0px 12px 0px;">
+        <a href="@Url.Action("GetOrderDeatils", "Order", new { OrderPlacedID = @OrderPLaced.ID})">
+            <p class="btn btn-danger">ViewOrderDetails</p>
+        </a>
+    </div>
+</div>
+}
+
+
+

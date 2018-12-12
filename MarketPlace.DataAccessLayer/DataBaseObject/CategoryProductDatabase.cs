@@ -9,7 +9,7 @@ using System.Data.Entity;
 using MarketPlace.Shared.DTO.Category;
 using MarketPlace.Shared.DTO.ProductCategory;
 
-namespace MarketPlace.DataAccessLayer
+namespace MarketPlace.DataAccessLayer.DataBaseObject
 {
   public  class CategoryProductDatabase
     {
@@ -79,8 +79,28 @@ namespace MarketPlace.DataAccessLayer
             ProductDTO Product = new ProductDTO();
             var product = dbContext.Products.Where(c => c.ID == CategoryID ).FirstOrDefault();
             Product = ProductsFromCategoryMapper.Map<Product, ProductDTO>(product);
-            return Product;
+            foreach (VariantDTO variant in Product.Variants)
+            {
+                variant.SKU = SetVariantStringFromSKU(variant.SKU);
+            }
+                return Product;
         }
-        
+        private string SetVariantStringFromSKU(string SKU)
+        {
+            string variantString = "";
+            string[] propertyValueMappingID = SKU.Split('~');
+            foreach (string mapper in propertyValueMappingID)
+            {
+                int mapperID = int.Parse(mapper);
+                Guid propertyID = dbContext.VariantPropertyValues.Where(m => m.ID == mapperID).Select(m => m.PropertyID).FirstOrDefault();
+                Guid valueID = dbContext.VariantPropertyValues.Where(m => m.ID == mapperID).Select(m => m.ValueID).FirstOrDefault();
+                string property = dbContext.Properties.Where(p => p.ID == propertyID).Select(p => p.Name).FirstOrDefault();
+                string value = dbContext.Values.Where(v => v.ID == valueID).Select(v => v.Name).FirstOrDefault();
+                variantString = variantString + " " + property + ":" + value;
+            }
+            return variantString;
+        }
+
+
     }
 }

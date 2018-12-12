@@ -10,6 +10,7 @@ using AutoMapper;
 using MarketPlace.DatabaseEntity;
 using MarketPlace.BusinessLayer.Exceptions;
 using MarketPlace.UserInterface.ActionFilter;
+using MarketPlace.Shared.DTO.Category;
 
 namespace MarketPlace.UserInterface.Controllers
 {
@@ -37,9 +38,10 @@ namespace MarketPlace.UserInterface.Controllers
             }
             catch (CategoryNotFoundException)
             {
-                return View("Product not found on this category");
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "Product not found in this category" });
+
             }
-                return View(data);
+            return View(data);
         }
         public ActionResult SearchProducts(string SearchString)
         {
@@ -59,7 +61,8 @@ namespace MarketPlace.UserInterface.Controllers
             }
             catch (CategoryNotFoundException)
             {
-                return View("Product not found on this category");
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "product not found on this catgory" });
+
             }
             return View(data);
         }
@@ -81,12 +84,33 @@ namespace MarketPlace.UserInterface.Controllers
             }
             catch (CategoryNotFoundException)
             {
-                return View("Error");
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "Category not found" });
+
             }
             viewModel = ProductViewMapper.Map<ProductDTO, ProductViewModel>(productDTO);
             
             return View(viewModel);
 
+        }
+        public PartialViewResult GetCategories()
+        {
+            CategoryProductBusiness categoryProductBusiness = new CategoryProductBusiness();
+            var categoriesMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CategoriesDTO, CategoriesViewModel>();
+            });
+            IMapper categoriesViewMapper = new Mapper(categoriesMapper);
+            try
+            {
+                CategoriesDTO categories = categoryProductBusiness.GetCategory();
+                CategoriesViewModel viewData = new CategoriesViewModel();
+                viewData.Category = categoriesViewMapper.Map<IEnumerable<CategoryDTO>, IEnumerable<CategoryViewModel>>(categories.Category);
+                return PartialView(viewData);
+            }
+            catch (Exception)
+            {
+                return PartialView("InternalError");
+            }
         }
     }
 }

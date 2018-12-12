@@ -36,23 +36,11 @@ namespace MarketPlace.UserInterface.Controllers
                     return View(data);
                 }
                 catch(Exception ) {
-                    return View("Internal Error");
-                }
-
-                //categoryProductBusiness categoryProductBusiness = new categoryProductBusiness();
-                //var categoriesMapper = new MapperConfiguration(cfg => {
-                //    cfg.CreateMap<CategoriesDTO, CategoriesView>();
-                //});
-                //IMapper categoriesViewMapper = new Mapper(categoriesMapper);
-                //try
-                //{
-                //    CategoriesDTO categories = categoryProductBusiness.GetCategory();
-                //    CategoriesView viewData = categoriesViewMapper.Map<CategoriesDTO, CategoriesView>(categories);
-                //    return View(viewData);
-                //}
-                //catch(Exception) {
-                //    return View("Internal Error");
-                //}
+                return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "Internal error" });
             }
+
+               
+            }
+        
     }
 }

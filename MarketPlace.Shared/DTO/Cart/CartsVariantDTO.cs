@@ -11,3 +11,4 @@ namespace MarketPlace.Shared.DTO.Cart
        public IEnumerable<CartVariantDTO> Items { get; set; }
     }
 }
+//not

@@ -9,53 +9,58 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-fixed-top" >
+        <div class=" navbar-inverse ">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
                     @Html.ActionLink("MarketPlace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li> <a href="@Url.Action("GetProductByCat", "Product", new { CategoryName = "tshirt" })">Tshirt</a></li>
-                        <li> <a href="@Url.Action("GetProductByCat", "Product", new { CategoryName = "shoes" })">Shoe</a></li>
-                        <li><a href="@Url.Action("GetProductByCat", "Product", new { CategoryName = "shorts" })">Shorts</a></li>
-                    </ul>
-                    <div class="col-sm-5 col-md-3">
-                        <div class="row">
-                            @using (Html.BeginForm("SearchProducts", "Product", FormMethod.Get, new { @class = "search-wrap" }))
-                            {
-                                <div class="form-group">
-                                    <div class="col-md-8"><input type="search" class="form-control search" placeholder="Search" name="SearchString"></div>
-                                    <div class="col-md-2"><button class="btn btn-primary submit-search text-center " type="submit">Search</button></div>
-                                </div>
-                            }
-                        </div>
+                    @Html.Action("GetCategories", "Product");
+                </div>
+            </div>
+            </div>
+            <div class="navbar-inverse ">
+                <div class="container">
+                    <div class="row pull-right" ">
+                        @using (Html.BeginForm("SearchProducts", "Product", FormMethod.Get, new { @class = "search-wrap" }))
+                        {
+                            <div class="form-group">
+                                <div class="col-md-6"><input type="search" class="form-control search" placeholder="Search" name="SearchString"></div>
+                                <div class="col-md-2"><button class="btn btn-primary submit-search text-center " type="submit">Search</button></div>
+                            </div>
+                        }
                     </div>
-                    <ul>
-                        <li> <a href="@Url.Action("Login", "Login")">Login</a></li>
-                        <li><a href="@Url.Action("Index", "Register")">SignUp</a></li>
+                    <ul class="pull-left nav navbar-nav">
+
+                        @if (Session["userId"] == null)
+                        {
+                            <li> <a href="@Url.Action("Login", "Login")">Login</a></li>
+                            <li><a href="@Url.Action("Index", "Register")">SignUp</a></li>
+                        }
+                        else
+                        {
+                            <li> <a href="@Url.Action("GetCart", "Cart")">Cart</a></li>
+                            <li><a href="@Url.Action("GetOrder", "Order")">MyOrder</a></li>
+                            <li><a href="@Url.Action("SignOut", "Login")">SignOut</a></li>
+                        }
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - MarketPlace</p>
-            </footer>
-        </div>
-</div>
+                    <div class="container body-content " style="margin-top:70px;">
+                        <div class="" >
+                            @RenderBody()
+                            <hr />
+                        </div>
+                        <footer></footer>
+                    </div>
+                </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("custom.css")
-        @RenderSection("scripts", required: false)
-        
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                @Scripts.Render("custom.css")
+                @RenderSection("scripts", required: false)
+
 </body>
 </html>

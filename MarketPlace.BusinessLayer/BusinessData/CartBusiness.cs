@@ -1,5 +1,5 @@
 ﻿using MarketPlace.BusinessLayer.Exceptions;
-using MarketPlace.DataAccessLayer;
+using MarketPlace.DataAccessLayer.DataBaseObject;
 using MarketPlace.DatabaseEntity;
 using MarketPlace.Shared.DTO.Cart;
 using MarketPlace.Shared.DTO.ProductCategory;
@@ -18,7 +18,7 @@ namespace MarketPlace.BusinessLayer.BusinessData
         {
             cartOrderHelper= new CartOrderHelper();
         }
-        public bool AddItemCart(CartOrderVariantDTO newVariantAdded)
+        public bool AddItemCart(CartVariantDTO newVariantAdded)
         {
             ///get the product variants details
             VariantDTO variantData = cartOrderHelper.GetVariantDetails(newVariantAdded.VariantID);
@@ -33,7 +33,7 @@ namespace MarketPlace.BusinessLayer.BusinessData
                 * add the new added Quautity to store quatity
                 * 
             */
-            CartOrderVariantDTO VariantPresentAtCart = cartOrderHelper.VariantPresentAtCart(newVariantAdded);
+            CartVariantDTO VariantPresentAtCart = cartOrderHelper.VariantPresentAtCart(newVariantAdded);
             /*
                 * 
                 * Check the inventory is available
@@ -74,6 +74,17 @@ namespace MarketPlace.BusinessLayer.BusinessData
         public CartsVariantDTO GetCartByUserId(Guid UserID)
         {
             return cartOrderHelper.GetCartByUserId(UserID);
+        }
+        public bool DeleteCartVariant(Guid Id, Guid UserID)
+        {
+            if(cartOrderHelper.DeleteCartVariant(Id, UserID))
+            {
+                return true;
+            }
+            else
+            {
+                throw new ItemCannotBeRemoveException();
+            }
         }
     }
 }

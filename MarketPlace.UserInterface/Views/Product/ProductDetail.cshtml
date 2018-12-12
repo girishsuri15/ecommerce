@@ -39,7 +39,7 @@
             <select name="VariantID" id="VariantID" class="form-control">
                 @foreach (var Variant in Model.Variants)
                 {
-                    <option value=@Variant.ID>@Variant.ID</option>
+                    <option value=@Variant.ID>@Variant.SKU</option>
                 }
             </select>
 

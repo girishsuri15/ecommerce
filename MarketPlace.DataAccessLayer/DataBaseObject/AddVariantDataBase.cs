@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketPlace.DataAccessLayer
+namespace MarketPlace.DataAccessLayer.DataBaseObject
 {
     public class AddVariantDataBase
     {
@@ -25,6 +25,7 @@ namespace MarketPlace.DataAccessLayer
             var VariantDTOConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Variant, VariantDTO>();
+                
             });
             var userOrderConfig = new MapperConfiguration(cfg =>
             {
@@ -32,9 +33,9 @@ namespace MarketPlace.DataAccessLayer
             });
             var cartConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CartOrderVariantDTO, CartVariantMapping>()
+                cfg.CreateMap<CartVariantDTO, CartVariantMapping>()
                     .ForMember(dest => dest.CartID,
-                     opts => opts.MapFrom(src => src.UserID));
+                     opts => opts.MapFrom(src => src.CartID));
             });
             var cartPresentConfig = new MapperConfiguration(cfg =>
             {
@@ -73,7 +74,11 @@ namespace MarketPlace.DataAccessLayer
             IEnumerable<OrderPlaced> OrderListUserData = dbContext.OrderPlaceds.Where(o => o.UserID == UserID).ToList();
             foreach (var orderData in OrderListUserData)
             {
-                UserOrderData.Add(dbContext.OrderPlacedVariants.Where(o => o.OrderPlacedID == orderData.OrderID).FirstOrDefault());
+               foreach(OrderPlacedVariant t in orderData.OrderPlacedVariants)
+                {
+                    UserOrderData.Add(t);
+                }
+                //UserOrderData.Add(dbContext.OrderPlacedVariants.Where(o => o.OrderPlacedID == orderData.OrderID).FirstOrDefault());
             }
             IEnumerable<OrderPlacedVariantDTO> orderPlacedDTO = OrderUserMapper.Map<IEnumerable<OrderPlacedVariant>, IEnumerable<OrderPlacedVariantDTO>>(UserOrderData);
             return orderPlacedDTO;
@@ -87,14 +92,14 @@ namespace MarketPlace.DataAccessLayer
         //{
 
         //}
-       public bool AddVariantToCart(CartOrderVariantDTO newVariantAdded,double SellingPrice)
+       public bool AddVariantToCart(CartVariantDTO newVariantAdded,double SellingPrice)
         {
             try
             {
-                CartVariantMapping cartVariantAdd = cartOrderMapper.Map<CartOrderVariantDTO, CartVariantMapping>(newVariantAdded);
+                CartVariantMapping cartVariantAdd = cartOrderMapper.Map<CartVariantDTO, CartVariantMapping>(newVariantAdded);
                 cartVariantAdd.ID = Guid.NewGuid();
                 cartVariantAdd.SellingPrice = SellingPrice;
-                CartVariantMapping variant = dbContext.CartVariantMappings.Where(v => v.VariantID == newVariantAdded.VariantID && v.CartID == newVariantAdded.UserID).FirstOrDefault();
+                CartVariantMapping variant = dbContext.CartVariantMappings.Where(v => v.VariantID == newVariantAdded.VariantID && v.CartID == newVariantAdded.CartID).FirstOrDefault();
                 if (variant == null)
                 {
                     dbContext.CartVariantMappings.Add(cartVariantAdd);
@@ -107,16 +112,16 @@ namespace MarketPlace.DataAccessLayer
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
             
         }
-        public CartOrderVariantDTO VariantPresentAtCart(CartOrderVariantDTO variantData)
+        public CartVariantDTO VariantPresentAtCart(CartVariantDTO variantData)
         {
-            CartVariantMapping variant = dbContext.CartVariantMappings.Where(v=>v.VariantID == variantData.VariantID && v.CartID== variantData.UserID).FirstOrDefault();
-            CartOrderVariantDTO variantPresentCart= cartCheckerMapper.Map<CartVariantMapping,CartOrderVariantDTO>(variant);
+            CartVariantMapping variant = dbContext.CartVariantMappings.Where(v=>v.VariantID == variantData.VariantID && v.CartID== variantData.CartID).FirstOrDefault();
+            CartVariantDTO variantPresentCart = cartCheckerMapper.Map<CartVariantMapping, CartVariantDTO>(variant);
             return variantPresentCart;
         }
         public CartsVariantDTO  GetCartByUserId(Guid UserId)
@@ -125,6 +130,17 @@ namespace MarketPlace.DataAccessLayer
             CartsVariantDTO cartVariantDTO = new CartsVariantDTO();
             cartVariantDTO.Items = cartVariantMapper.Map <IEnumerable<CartVariantMapping>,IEnumerable<CartVariantDTO>>(itemAtCart);
             return cartVariantDTO;
+        }
+        public bool  DeleteCartVariant(Guid Id,Guid UserID)
+        {
+            CartVariantMapping cartVariant = dbContext.CartVariantMappings.Where(v => v.CartID == UserID && v.ID == Id).FirstOrDefault();
+            if (cartVariant != null)
+            {
+                dbContext.CartVariantMappings.Remove(cartVariant);
+                dbContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }
