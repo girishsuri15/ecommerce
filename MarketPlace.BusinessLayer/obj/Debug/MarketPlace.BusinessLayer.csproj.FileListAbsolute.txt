@@ -24,3 +24,5 @@ C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\obj\Debug
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\obj\Debug\MarketPlace.BusinessLayer.csproj.CopyComplete
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\obj\Debug\MarketPlace.BusinessLayer.dll
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\obj\Debug\MarketPlace.BusinessLayer.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\bin\Debug\MarketPlace.mdf
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.BusinessLayer\bin\Debug\MarketPlace_log.ldf

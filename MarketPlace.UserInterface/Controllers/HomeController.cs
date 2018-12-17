@@ -35,7 +35,7 @@ namespace MarketPlace.UserInterface.Controllers
                     data = categoriesViewMapper.Map<ProductAnalysisDTO,ProductAnalysisViewModel>(categoryProduct);
                     return View(data);
                 }
-                catch(Exception ) {
+                catch(Exception ex) {
                 return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "Internal error" });
             }
 

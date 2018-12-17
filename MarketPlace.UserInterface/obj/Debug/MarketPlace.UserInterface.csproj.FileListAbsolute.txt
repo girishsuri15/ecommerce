@@ -112,3 +112,5 @@ C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\obj\Debug
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\obj\Debug\MarketPlace.UserInterface.csproj.CopyComplete
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\obj\Debug\MarketPlace.UserInterface.dll
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\obj\Debug\MarketPlace.UserInterface.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\bin\MarketPlace.mdf
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.UserInterface\bin\MarketPlace_log.ldf

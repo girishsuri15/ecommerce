@@ -10,3 +10,5 @@ C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Rele
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.csproj.CopyComplete
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.dll
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\obj\Release\MarketPlace.DatabaseEntity.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\MarketPlace.mdf
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DatabaseEntity\bin\Release\MarketPlace_log.ldf

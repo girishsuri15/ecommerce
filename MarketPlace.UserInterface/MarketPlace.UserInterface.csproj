@@ -196,6 +196,10 @@
     <Compile Include="ViewModel\User\CheckAdminViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MarketPlace.mdf" />
+    <Content Include="App_Data\MarketPlace_log.ldf">
+      <DependentUpon>MarketPlace.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -259,7 +263,6 @@
     <Content Include="Views\HttpErrors\ErrorViewShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

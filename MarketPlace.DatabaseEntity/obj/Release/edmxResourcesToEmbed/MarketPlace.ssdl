@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarketPlaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" />
+    <Property Name="Pin" Type="int" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CartVariantMapping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CartID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="VariantID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SellingPrice" Type="float" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductsSold" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="TotalAmount" Type="float" Nullable="false" />
+    <Property Name="DeliveryAddressID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DeliveryDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="StatusID" Type="int" Nullable="false" />
+    <Property Name="isCancelled" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderPlaced">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderPlacedVariants">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderPlacedID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="VariantID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SellingPrice" Type="float" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CategoryID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="OrderLimit" Type="int" />
+    <Property Name="TotalVariantsSold" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Property">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="HashPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" />
+    <Property Name="RoleID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserAddressMapping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" />
+    <Property Name="AddressID" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Value">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Variant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SKU" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProductID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ListingPrice" Type="float" Nullable="false" />
+    <Property Name="Discount" Type="float" Nullable="false" />
+    <Property Name="QuantitySold" Type="int" Nullable="false" />
+    <Property Name="Inventory" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VariantImage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="VariantID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ImageURL" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VariantPropertyValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PropertyID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ValueID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CartVariantMapping_Cart">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CartVariantMapping" Type="Self.CartVariantMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CartVariantMapping">
+        <PropertyRef Name="CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartVariantMapping_Variant">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="CartVariantMapping" Type="Self.CartVariantMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CartVariantMapping">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderAddressID">
+    <End Role="Address" Type="Self.Address" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryAddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlaced_OrderID">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlaced">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlaced_UserID">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlaced">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlacedVariants_OrderPlacedID">
+    <End Role="OrderPlaced" Type="Self.OrderPlaced" Multiplicity="1" />
+    <End Role="OrderPlacedVariants" Type="Self.OrderPlacedVariants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderPlaced">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlacedVariants">
+        <PropertyRef Name="OrderPlacedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderPlacedVariants_VariantID">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="OrderPlacedVariants" Type="Self.OrderPlacedVariants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderPlacedVariants">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_CategoryID">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_statusID">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddressMapping_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="UserAddressMapping" Type="Self.UserAddressMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAddressMapping">
+        <PropertyRef Name="AddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddressMapping_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserAddressMapping" Type="Self.UserAddressMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAddressMapping">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Variant">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Variant" Type="Self.Variant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Variant">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantImage">
+    <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+    <End Role="VariantImage" Type="Self.VariantImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Variant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantImage">
+        <PropertyRef Name="VariantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantPropertyValue_PropertyID">
+    <End Role="Property" Type="Self.Property" Multiplicity="1" />
+    <End Role="VariantPropertyValue" Type="Self.VariantPropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantPropertyValue">
+        <PropertyRef Name="PropertyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VariantPropertyValue_ValueID">
+    <End Role="Value" Type="Self.Value" Multiplicity="1" />
+    <End Role="VariantPropertyValue" Type="Self.VariantPropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Value">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VariantPropertyValue">
+        <PropertyRef Name="ValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="addCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CategoryID" Type="uniqueidentifier" Mode="InOut" />
+  </Function>
+  <Function Name="AddItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderLimit" Type="int" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="ListingPrice" Type="float" Mode="In" />
+    <Parameter Name="Discount" Type="float" Mode="In" />
+    <Parameter Name="QuantitySold" Type="int" Mode="In" />
+    <Parameter Name="Inventory" Type="int" Mode="In" />
+    <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ValueName" Type="nvarchar" Mode="In" />
+    <Parameter Name="VariantImage" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderLimit" Type="int" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="CategoryID" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="ListingPrice" Type="float" Mode="In" />
+    <Parameter Name="Discount" Type="float" Mode="In" />
+    <Parameter Name="QuantitySold" Type="int" Mode="In" />
+    <Parameter Name="Inventory" Type="int" Mode="In" />
+    <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ValueName" Type="nvarchar" Mode="In" />
+    <Parameter Name="VariantImage" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AddProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="PropertyID" Type="uniqueidentifier" Mode="InOut" />
+  </Function>
+  <Function Name="AddValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="ValueID" Type="uniqueidentifier" Mode="InOut" />
+  </Function>
+  <Function Name="AddVariant" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductID" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="ListingPrice" Type="float" Mode="In" />
+    <Parameter Name="Discount" Type="float" Mode="In" />
+    <Parameter Name="QuantitySold" Type="int" Mode="In" />
+    <Parameter Name="Inventory" Type="int" Mode="In" />
+    <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ValueName" Type="nvarchar" Mode="In" />
+    <Parameter Name="VariantImage" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AddVariantImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VariantID" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="ImageURL" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AddVariantPropertyValueMapping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ValueName" Type="nvarchar" Mode="In" />
+    <Parameter Name="MapID" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="MarketPlaceModelStoreContainer">
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CartVariantMapping" EntityType="Self.CartVariantMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderPlaced" EntityType="Self.OrderPlaced" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderPlacedVariants" EntityType="Self.OrderPlacedVariants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAddressMapping" EntityType="Self.UserAddressMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Value" EntityType="Self.Value" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Variant" EntityType="Self.Variant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VariantImage" EntityType="Self.VariantImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VariantPropertyValue" EntityType="Self.VariantPropertyValue" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CartVariantMapping_Cart" Association="Self.FK_CartVariantMapping_Cart">
+      <End Role="User" EntitySet="User" />
+      <End Role="CartVariantMapping" EntitySet="CartVariantMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartVariantMapping_Variant" Association="Self.FK_CartVariantMapping_Variant">
+      <End Role="Variant" EntitySet="Variant" />
+      <End Role="CartVariantMapping" EntitySet="CartVariantMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderAddressID" Association="Self.FK_OrderAddressID">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlaced_OrderID" Association="Self.FK_OrderPlaced_OrderID">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderPlaced" EntitySet="OrderPlaced" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlaced_UserID" Association="Self.FK_OrderPlaced_UserID">
+      <End Role="User" EntitySet="User" />
+      <End Role="OrderPlaced" EntitySet="OrderPlaced" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlacedVariants_OrderPlacedID" Association="Self.FK_OrderPlacedVariants_OrderPlacedID">
+      <End Role="OrderPlaced" EntitySet="OrderPlaced" />
+      <End Role="OrderPlacedVariants" EntitySet="OrderPlacedVariants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderPlacedVariants_VariantID" Association="Self.FK_OrderPlacedVariants_VariantID">
+      <End Role="Variant" EntitySet="Variant" />
+      <End Role="OrderPlacedVariants" EntitySet="OrderPlacedVariants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_CategoryID" Association="Self.FK_Product_CategoryID">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_statusID" Association="Self.FK_statusID">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User" Association="Self.FK_User">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAddressMapping_Address" Association="Self.FK_UserAddressMapping_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="UserAddressMapping" EntitySet="UserAddressMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAddressMapping_User" Association="Self.FK_UserAddressMapping_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserAddressMapping" EntitySet="UserAddressMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Variant" Association="Self.FK_Variant">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Variant" EntitySet="Variant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantImage" Association="Self.FK_VariantImage">
+      <End Role="Variant" EntitySet="Variant" />
+      <End Role="VariantImage" EntitySet="VariantImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantPropertyValue_PropertyID" Association="Self.FK_VariantPropertyValue_PropertyID">
+      <End Role="Property" EntitySet="Property" />
+      <End Role="VariantPropertyValue" EntitySet="VariantPropertyValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VariantPropertyValue_ValueID" Association="Self.FK_VariantPropertyValue_ValueID">
+      <End Role="Value" EntitySet="Value" />
+      <End Role="VariantPropertyValue" EntitySet="VariantPropertyValue" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

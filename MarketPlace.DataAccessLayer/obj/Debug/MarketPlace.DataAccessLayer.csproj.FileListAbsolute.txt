@@ -21,3 +21,5 @@ C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\obj\Deb
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\obj\Debug\MarketPlace.DataAccessLayer.csproj.CopyComplete
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\obj\Debug\MarketPlace.DataAccessLayer.dll
 C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\obj\Debug\MarketPlace.DataAccessLayer.pdb
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\bin\Debug\MarketPlace.mdf
+C:\Users\girishsuri\source\repos\MarketPlace\MarketPlace.DataAccessLayer\bin\Debug\MarketPlace_log.ldf
