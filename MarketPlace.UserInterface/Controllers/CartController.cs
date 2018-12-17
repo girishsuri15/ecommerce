@@ -17,7 +17,8 @@ namespace MarketPlace.UserInterface.Controllers
     public class CartController : Controller
     {
         /// <summary>
-        /// 
+        /// add the new varinat to cart 
+        /// inputs:Quantity,and varinatID        
         /// </summary>
         /// <param name="cartVariantViewModel"></param>
         /// <returns></returns>
@@ -40,12 +41,16 @@ namespace MarketPlace.UserInterface.Controllers
                 bool isproductAdd = cartBusiness.AddItemCart(cartItemDTO);
                 return RedirectToAction("GetCart", "Cart");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "order Limit For Product is Excedd" });
             }
 
         }
+        /// <summary>
+        /// get the all product aviable in the cart
+        /// </summary>
+        /// <returns>view cart details</returns>
         public ActionResult GetCart()
         {
             Guid UserID = new Guid(Session["userId"].ToString());
@@ -62,6 +67,12 @@ namespace MarketPlace.UserInterface.Controllers
             CartViewModel viewData = cartDataMapper.Map<CartsVariantDTO,CartViewModel>(data);
             return View(viewData);
         }
+        /// <summary>
+        /// delete Product from cart 
+        /// input:ProductId
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>view for cart</returns>
         public ActionResult DeleteCartVariant(Guid Id)
         {
             CartBusiness cartBusiness = new CartBusiness();

@@ -12,6 +12,9 @@ using MarketPlace.Shared.DTO.Order;
 
 namespace MarketPlace.BusinessLayer.BusinessData
 {
+    /// <summary>
+    /// orderbusiness 
+    /// </summary>
     public class OrderBusiness
     {
         CartOrderHelper cartOrderHelper;
@@ -27,7 +30,12 @@ namespace MarketPlace.BusinessLayer.BusinessData
             });
             orderMapper = new Mapper(OrderConfig);
         }
-
+        /// <summary>
+        /// placeorder of user with address id and userId
+        /// </summary>
+        /// <param name="AddressId"></param>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
         public bool PlacedOrder(Guid AddressId, Guid UserId)
         {
             VariantDTO variantDTO = new VariantDTO();
@@ -98,11 +106,21 @@ namespace MarketPlace.BusinessLayer.BusinessData
                 throw new UserDetailIsWrong();
             }
         }
+        /// <summary>
+        /// get all the orders submiited by the user
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns>OrdersPlacedDTO</returns>
         public OrdersPlacedDTO GetOrder(Guid UserId)
         {
             return orderDatabase.GetOrder(UserId);
         }
-       public OrdersPlacedVariantDTO GetOrderDeatils(Guid OrderPlacedID)
+        /// <summary>
+        /// get order deatils for particlar order
+        /// </summary>
+        /// <param name="OrderPlacedID"></param>
+        /// <returns>OrdersPlacedVariantDTO</returns>
+        public OrdersPlacedVariantDTO GetOrderDeatils(Guid OrderPlacedID)
         {
             return orderDatabase.GetOrderDeatils(OrderPlacedID);
         }

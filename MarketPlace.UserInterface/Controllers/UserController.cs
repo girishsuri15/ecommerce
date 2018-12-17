@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// checkadmin user
+    /// </summary>
     public class UserController : Controller
     {
         [UserAuthFilter]

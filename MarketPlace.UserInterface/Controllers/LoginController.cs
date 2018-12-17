@@ -11,6 +11,9 @@ using System.Web.Mvc;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// Login controller
+    /// </summary>
     public class LoginController : Controller
     {
         UserBusiness userBusiness;
@@ -40,9 +43,8 @@ namespace MarketPlace.UserInterface.Controllers
         /// user login details
         /// </summary>
         /// <param name="loginModel"></param>
-        /// <returns></returns>
+        /// <returns>set seession id</returns>
         ///
-
         [HttpPost]
         public ActionResult Login([Bind(Include = "Password,Email")]  UserLoginViewModel loginModel)
         {
@@ -65,6 +67,11 @@ namespace MarketPlace.UserInterface.Controllers
                 return View(loginModel);
             }
         }
+
+        /// <summary>
+        /// sign out controller
+        /// </summary>
+        /// <returns></returns>
         [UserAuthFilter]
         public ActionResult SignOut()
         {

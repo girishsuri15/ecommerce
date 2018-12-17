@@ -12,6 +12,9 @@ using System.Diagnostics;
 
 namespace MarketPlace.DataAccessLayer.DataBaseObject
 {
+    /// <summary>
+    /// category product
+    /// </summary>
   public  class CategoryProductDatabase
     {
         MarketPlaceEntities dbContext;
@@ -37,7 +40,12 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             ProductsFromCategoryMapper = new Mapper(ProductsCategoryDTOMapper);
             categoryListMapper = new Mapper(categoryProductDTOConfig);
         }
-        //get all the categories avaiable
+
+        /// <summary>
+        ///get all the categories avaiable 
+        /// </summary>
+        /// <returns></returns>
+
         public CategoriesDTO GetCategory()
         {
             
@@ -46,7 +54,11 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             newCategoryDTO.Category = categoryListMapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categoryList);
             return newCategoryDTO;
         }
-        //get top selleing products and catoriges
+        /// <summary>
+        /// get top selleing products and catoriges
+        /// </summary>
+        /// <returns></returns>
+
         public ProductAnalysisDTO GetTopProduct()
         {
             ProductAnalysisDTO productAnalysisDTO = new ProductAnalysisDTO();
@@ -55,6 +67,11 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             productAnalysisDTO.Categories = categoryListMapper.Map<IEnumerable<Category>, IEnumerable<CategoryProductDTO>>(Categories);
             return  productAnalysisDTO;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CategoryID"></param>
+        /// <returns></returns>
         public CategoryProductDTO GetProductFromCatgory(Guid CategoryID)
         {
             CategoryProductDTO categoryProduct = new CategoryProductDTO();
@@ -63,6 +80,11 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             categoryProduct.Products = ProductsFromCategoryMapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(product);
                 return categoryProduct;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <returns></returns>
         public Guid GetCategoryByName(string CategoryName)
         {
             CategoryProductDTO categoryProduct = new CategoryProductDTO();
@@ -70,6 +92,11 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             //categoryProduct.Products = ProductsFromCategoryMapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(product);
             return id;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
         public CategoryProductDTO SearchProducts(string searchString)
         {
             CategoryProductDTO ProductList = new CategoryProductDTO();

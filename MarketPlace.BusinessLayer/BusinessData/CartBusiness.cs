@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.BusinessLayer.BusinessData
 {
+    /// <summary>
+    /// cart business
+    /// </summary>
    public class CartBusiness
     {
         CartOrderHelper cartOrderHelper;
@@ -18,6 +21,11 @@ namespace MarketPlace.BusinessLayer.BusinessData
         {
             cartOrderHelper= new CartOrderHelper();
         }
+        /// <summary>
+        /// add product to cart business
+        /// </summary>
+        /// <param name="newVariantAdded"></param>
+        /// <returns>true is product is added</returns>
         public bool AddItemCart(CartVariantDTO newVariantAdded)
         {
             ///get the product variants details
@@ -71,10 +79,21 @@ namespace MarketPlace.BusinessLayer.BusinessData
             }
         return true;
         }
+        /// <summary>
+        /// get the all product variant from the cart
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public CartsVariantDTO GetCartByUserId(Guid UserID)
         {
             return cartOrderHelper.GetCartByUserId(UserID);
         }
+        /// <summary>
+        /// delete the productVariant from the cart
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public bool DeleteCartVariant(Guid Id, Guid UserID)
         {
             if(cartOrderHelper.DeleteCartVariant(Id, UserID))

@@ -51,6 +51,11 @@ namespace MarketPlace.BusinessLayer.BusinessData
                 throw new UserIsNotExist();
             }
         }
+        /// <summary>
+        /// checkadmin if the user is admin
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public bool CheckAdmin(Guid UserID)
         {
             return userDatabase.CheckAdmin(UserID);

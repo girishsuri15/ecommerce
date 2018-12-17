@@ -14,11 +14,18 @@ using MarketPlace.Shared.DTO.Category;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// product contoller
+    /// </summary>
     public class ProductController : Controller
     {
         public CategoryProductDTO CategoryProductViewModel { get; private set; }
 
-        // GET: Product
+        /// <summary>
+        /// get all product by the CategoryName
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <returns></returns>
         public ActionResult GetProductByCat(string CategoryName)
         {
             /*mapping settings for getting the product by the category*/
@@ -43,6 +50,11 @@ namespace MarketPlace.UserInterface.Controllers
             }
             return View(data);
         }
+        /// <summary>
+        /// serach products from serach string 
+        /// </summary>
+        /// <param name="SearchString">string for which user wants to search product</param>
+        /// <returns></returns>
         public ActionResult SearchProducts(string SearchString)
         {
             var ProductViewConfig = new MapperConfiguration(cfg => {
@@ -66,6 +78,11 @@ namespace MarketPlace.UserInterface.Controllers
             }
             return View(data);
         }
+        /// <summary>
+        /// Productdetail of partuilaur product
+        /// </summary>
+        /// <param name="ProductID"></param>
+        /// <returns>product view</returns>
         [UserAuthFilter]
         public ActionResult ProductDetail(Guid ProductID)
         {
@@ -92,6 +109,10 @@ namespace MarketPlace.UserInterface.Controllers
             return View(viewModel);
 
         }
+        /// <summary>
+        /// Get Categories product variant 
+        /// </summary>
+        /// <returns></returns>
         public PartialViewResult GetCategories()
         {
             CategoryProductBusiness categoryProductBusiness = new CategoryProductBusiness();

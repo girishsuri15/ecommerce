@@ -11,9 +11,17 @@ using System.Web.Mvc;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// order contoller
+    /// </summary>
     [UserAuthFilter]
     public class OrderController : Controller
     {
+        /// <summary>
+        /// placed new order
+        /// </summary>
+        /// <param name="AddressId"></param>
+        /// <returns></returns>
         public ActionResult Order(Guid AddressId)
         {
             OrderBusiness orderBusiness = new OrderBusiness();

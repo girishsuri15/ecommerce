@@ -30,6 +30,11 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
             AddresssMapper = new Mapper(AddressConfig);
             AddressAdded = new Mapper(AddressDTOConfig);
         }
+        /// <summary>
+        /// databse get all addresss
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
         public AddresssDTO GetAllAddress(Guid UserId)
         {
             IEnumerable<UserAddressMapping> UserAddresssMapping = dbContext.UserAddressMappings.Where(a => a.UserID == UserId).ToList();
@@ -43,6 +48,12 @@ namespace MarketPlace.DataAccessLayer.DataBaseObject
              addressDTO.Addresses = AddresssMapper.Map<IEnumerable<Address>, IEnumerable<AddressDTO>>(addreses);
             return addressDTO;
         }
+        /// <summary>
+        /// add address
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <param name="newAddress"></param>
+        /// <returns>true is added</returns>
         public bool AddAddress(Guid UserID, AddressDTO newAddress)
         {
             newAddress.ID = Guid.NewGuid();

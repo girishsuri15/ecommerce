@@ -12,8 +12,15 @@ using Newtonsoft.Json;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// home page view foir varius product
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// return view for products from top 3 categories with top 3 product in each category
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult Index()
         {
             CategoryProductBusiness categoryProductBusiness = new CategoryProductBusiness();
@@ -35,7 +42,7 @@ namespace MarketPlace.UserInterface.Controllers
                     data = categoriesViewMapper.Map<ProductAnalysisDTO,ProductAnalysisViewModel>(categoryProduct);
                     return View(data);
                 }
-                catch(Exception ex) {
+                catch(Exception) {
                 return RedirectToAction("ErrorViewShow", "HttpErrors", new { msg = "Internal error" });
             }
 

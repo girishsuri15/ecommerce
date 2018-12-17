@@ -11,10 +11,16 @@ using System.Web.Mvc;
 
 namespace MarketPlace.UserInterface.Controllers
 {
+    /// <summary>
+    /// Handling address views for showing addresses of user adding new address etc.
+    /// </summary>
     [UserAuthFilter]
     public class AddressController : Controller
     {
-        
+        /// <summary>
+        /// showing all the addres of the user
+        /// </summary>
+        /// <returns>viewforAll address Of User</returns>
         [HttpGet]
         public ActionResult Address()
         {
@@ -33,9 +39,15 @@ namespace MarketPlace.UserInterface.Controllers
             }
             catch (Exception)
             {
+                //if address not exist return new form
                 return View("NewAddress");
             }
         }
+        /// <summary>
+        /// newaddress submission controller
+        /// </summary>
+        /// <param name="AddressModel"></param>
+        /// <returns>view for all address of user</returns>
         [HttpPost]
         public ActionResult NewAddress([Bind(Include = "AddressLine1,AddressLine2,Pin,City,State,Country")]  AddressViewModel AddressModel)
         {
@@ -55,6 +67,11 @@ namespace MarketPlace.UserInterface.Controllers
             AddressViewModel address = new AddressViewModel();
             return View(address);
         }
+
+        /// <summary>
+        /// new address form showing contoller
+        /// </summary>
+        /// <returns>view for show the address form</returns>
         public ActionResult NewAddress()
         {
             return View();
